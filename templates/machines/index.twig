@@ -1,0 +1,36 @@
+{% extends "base.twig" %}
+
+{% block content %}
+<div class="machines-dashboard">
+    <header class="page-header">
+        <h1>Gestão de Impressoras e Máquinas</h1>
+        <a href="/machines/create" class="btn-primary">Nova Máquina</a>
+    </header>
+
+    <div class="machines-grid">
+        {% for machine in machines %}
+            <div class="machine-card {% if machine.pending_maintenance > 0 %}needs-maintenance{% endif %}">
+                <div class="machine-header">
+                    <h3>{{ machine.name }}</h3>
+                    <span class="machine-type">{{ machine.type }}</span>
+                </div>
+                
+                <div class="machine-details">
+                    <p><strong>Modelo:</strong> {{ machine.model }}</p>
+                    <p><strong>Série:</strong> {{ machine.serial_number }}</p>
+                    <p><strong>Última Manutenção:</strong> {{ machine.last_maintenance|date("d/m/Y") }}</p>
+                </div>
+
+                <div class="machine-actions">
+                    <a href="/machines/maintenance/{{ machine.id }}" class="btn-secondary">
+                        Registrar Manutenção
+                    </a>
+                    <a href="/machines/history/{{ machine.id }}" class="btn-info">
+                        Histórico
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

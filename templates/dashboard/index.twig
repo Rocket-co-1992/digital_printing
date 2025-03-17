@@ -1,0 +1,38 @@
+{% extends "base.twig" %}
+
+{% block content %}
+<div class="dashboard">
+    <div class="dashboard-grid">
+        <div class="dashboard-card maintenance-alerts">
+            <h2>Manutenções Próximas</h2>
+            <ul>
+                {% for maintenance in upcoming_maintenance %}
+                    <li class="{% if maintenance.next_maintenance|date('Y-m-d') <= 'now'|date('Y-m-d') %}urgent{% endif %}">
+                        {{ maintenance.name }} - {{ maintenance.next_maintenance|date("d/m/Y") }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="dashboard-card stock-alerts">
+            <h2>Estoque Baixo</h2>
+            <ul>
+                {% for item in low_stock_items %}
+                    <li>{{ item.name }} ({{ item.current_quantity }} {{ item.unit }})</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="dashboard-card machine-stats">
+            <h2>Estatísticas de Máquinas</h2>
+            {% for machine, stats in machine_statistics %}
+                <div class="machine-stat">
+                    <h3>{{ machine.name }}</h3>
+                    <p>Trabalhos: {{ stats.total_jobs }}</p>
+                    <p>Tempo médio: {{ (stats.avg_duration/60)|round(1) }}h</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

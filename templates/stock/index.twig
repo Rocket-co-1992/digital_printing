@@ -1,0 +1,39 @@
+{% extends "base.twig" %}
+
+{% block content %}
+<div class="stock-management">
+    <header class="page-header">
+        <h1>Gestão de Stock</h1>
+        <div class="actions">
+            <a href="/stock/add" class="btn-primary">Novo Item</a>
+            <a href="/stock/movement" class="btn-secondary">Registrar Movimento</a>
+        </div>
+    </header>
+
+    <div class="stock-grid">
+        {% for item in items %}
+            <div class="stock-card {% if item.current_quantity <= item.minimum_quantity %}low-stock{% endif %}">
+                <h3>{{ item.name }}</h3>
+                <div class="stock-info">
+                    <div class="quantity">
+                        <span class="label">Quantidade Atual:</span>
+                        <span class="value">{{ item.current_quantity }} {{ item.unit }}</span>
+                    </div>
+                    <div class="minimum">
+                        <span class="label">Mínimo:</span>
+                        <span class="value">{{ item.minimum_quantity }} {{ item.unit }}</span>
+                    </div>
+                </div>
+                <div class="actions">
+                    <button onclick="addMovement({{ item.id }}, 'in')" class="btn-success">Entrada</button>
+                    <button onclick="addMovement({{ item.id }}, 'out')" class="btn-danger">Saída</button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/assets/js/stock.js"></script>
+{% endblock %}

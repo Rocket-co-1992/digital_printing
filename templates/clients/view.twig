@@ -1,0 +1,36 @@
+{% extends "base.twig" %}
+
+{% block content %}
+<div class="client-details">
+    <header class="page-header">
+        <h1>Detalhes do Cliente</h1>
+        <div class="actions">
+            <a href="/clients/edit/{{ client.id }}" class="btn-primary">Editar</a>
+            <button class="btn-danger" onclick="confirmDelete({{ client.id }})">Eliminar</button>
+        </div>
+    </header>
+
+    <div class="detail-card">
+        <div class="detail-row">
+            <label>Nome:</label>
+            <span>{{ client.name }}</span>
+        </div>
+        <div class="detail-row">
+            <label>Email:</label>
+            <span>{{ client.email }}</span>
+        </div>
+        <div class="detail-row">
+            <label>Telefone:</label>
+            <span>{{ client.phone }}</span>
+        </div>
+        <div class="detail-row">
+            <label>Empresa:</label>
+            <span>{{ client.company_name }}</span>
+        </div>
+        <div class="detail-row">
+            <label>NIF:</label>
+            <span>{{ client.tax_number }}</span>
+        </div>
+    </div>
+</div>
+{% endblock %}

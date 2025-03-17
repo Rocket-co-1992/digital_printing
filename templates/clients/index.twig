@@ -1,0 +1,42 @@
+{% extends "base.twig" %}
+
+{% block content %}
+<div class="clients-list">
+    <header class="page-header">
+        <h1>Gestão de Clientes</h1>
+        <a href="/clients/create" class="btn-primary">Novo Cliente</a>
+    </header>
+
+    <div class="search-bar">
+        <input type="text" id="clientSearch" placeholder="Pesquisar clientes...">
+    </div>
+
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Telefone</th>
+                <th>Empresa</th>
+                <th>NIF</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for client in clients %}
+                <tr>
+                    <td>{{ client.name }}</td>
+                    <td>{{ client.email }}</td>
+                    <td>{{ client.phone }}</td>
+                    <td>{{ client.company_name }}</td>
+                    <td>{{ client.tax_number }}</td>
+                    <td class="actions">
+                        <a href="/clients/edit/{{ client.id }}" class="btn-edit">Editar</a>
+                        <a href="/clients/view/{{ client.id }}" class="btn-view">Ver</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

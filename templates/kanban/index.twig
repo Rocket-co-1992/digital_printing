@@ -1,0 +1,37 @@
+{% extends "base.twig" %}
+
+{% block content %}
+<div class="kanban-board">
+    <div class="kanban-column" data-status="pending">
+        <h2>Pendentes</h2>
+        {% for task in columns.pending %}
+            <div class="task-card" draggable="true" data-task-id="{{ task.id }}">
+                <h3>{{ task.title }}</h3>
+                <p>{{ task.description }}</p>
+                <div class="task-meta">
+                    <span class="assigned-to">{{ task.assigned_name }}</span>
+                    <span class="due-date">{{ task.due_date|date("d/m/Y") }}</span>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="kanban-column" data-status="in_progress">
+        <h2>Em Progresso</h2>
+        {% for task in columns.in_progress %}
+            {# Similar task card structure #}
+        {% endfor %}
+    </div>
+
+    <div class="kanban-column" data-status="completed">
+        <h2>Concluídas</h2>
+        {% for task in columns.completed %}
+            {# Similar task card structure #}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/assets/js/kanban.js"></script>
+{% endblock %}
